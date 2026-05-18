@@ -278,10 +278,9 @@ I plan to add an incident response section showing what happens after DET-002 fi
 
 ## What I Learned
 
-**Splunk index discovery.** My data was in an index called `endpoint` not `sysmon`. 
-I troubleshot this by running `index=* | stats count by index` to discover what 
-indexes existed. All 17,000+ events were in the correct location — I just needed 
-to find them.
+**Sysmon gives you the full picture.** Windows Event Logs told me an attack happened, Sysmon told me exactly what the attacker did. Sysmon is built specifically for security monitoring, so while standard Windows logs recorded that PowerShell ran, Sysmon captured the actual commands executed, file hashes, and which process launched it. Using both together gave me a complete investigation. Splunk aggregated everything in one place, Sysmon provided the depth to understand what the attacker actually did once they were inside.
+
+**Active Directory is where access control lives.** This was my first time building an Active Directory environment. Creating Organizational Units and assigning permissions showed me how role-based access actually works in practice, it made the concept real in a way that studying it alone never did.
 
 **lsass.exe is the crown jewel.** Finding a Sysmon EventCode 10 event with 
 GrantedAccess 0x1fffff against lsass.exe on my domain controller — and 
@@ -295,9 +294,20 @@ against multiple accounts. Recognizing that pattern and building an automated
 detection rule to catch it is the core of SOC analyst work.
 
 **Disk space is a real operational constraint.** Planning resource allocation 
-before running storage-intensive tools — and knowing when to prioritize evidence 
+before running storage-intensive tools, and knowing when to prioritize evidence 
 collection over cleanup — are skills that transfer directly to production 
 environments.
+
+---
+
+## Issues and Workarounds
+
+**Network-Restricted File Transfer.** The Windows VMs couldn't download the Splunk Universal Forwarder directly due to a network block. I worked around it by downloading the installer on my host machine via my phone's hotspot, transferring it through a shared folder into the VM, then disconnecting the shared folder immediately to preserve network isolation.
+
+**Splunk index discovery.** My data was in an index called `endpoint` not `sysmon`. 
+I troubleshot this by running `index=* | stats count by index` to discover what 
+indexes existed. All 17,000+ events were in the correct location — I just needed 
+to find them.
 
 ---
 
