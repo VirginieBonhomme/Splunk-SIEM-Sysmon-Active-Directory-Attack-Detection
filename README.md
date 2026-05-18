@@ -267,6 +267,7 @@ evidence was indexed I deleted the Kali VM and recovered 63.8 GB of disk space.
 | T1059.001 | PowerShell Execution | Atomic Red Team | ✅ Sysmon EID 7 with file hashes |
 | T1003 | Credential Dumping | Atomic Red Team | ✅ Sysmon EID 10 — GrantedAccess 0x1fffff on lsass.exe |
 
+
 ---
 
 ## What I Learned
@@ -275,6 +276,12 @@ evidence was indexed I deleted the Kali VM and recovered 63.8 GB of disk space.
 I troubleshot this by running `index=* | stats count by index` to discover what 
 indexes existed. All 17,000+ events were in the correct location — I just needed 
 to find them.
+
+**lsass.exe is the crown jewel.** Finding a Sysmon EventCode 10 event with 
+GrantedAccess 0x1fffff against lsass.exe on my domain controller — and 
+understanding what it means — gave me a real appreciation for why domain 
+controllers are the highest-priority targets in any network. Every domain 
+credential hash lives in lsass memory.
 
 **Brute force has a signature.** A successful brute force attack generates many 
 EventCode 4625 events clustered in a short time window from a single source 
