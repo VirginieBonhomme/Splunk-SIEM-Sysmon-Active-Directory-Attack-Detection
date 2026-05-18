@@ -20,8 +20,9 @@
 6. [The Detection I Built](#the-detection-i-built)
 7. [The Problem I Solved](#the-problem-i-solved)
 8. [MITRE ATT&CK Coverage](#mitre-attck-coverage)
-9. [What I Learned](#what-i-learned)
-10. [Portfolio Evidence](#portfolio-evidence)
+9. [Next Steps](#next-steps)
+10. [What I Learned](#what-i-learned)
+11. [Portfolio Evidence](#portfolio-evidence)
 
 ---
 
@@ -267,6 +268,11 @@ evidence was indexed I deleted the Kali VM and recovered 63.8 GB of disk space.
 | T1059.001 | PowerShell Execution | Atomic Red Team | ✅ Sysmon EID 7 with file hashes |
 | T1003 | Credential Dumping | Atomic Red Team | ✅ Sysmon EID 10 — GrantedAccess 0x1fffff on lsass.exe |
 
+---
+
+## Next Steps
+
+I plan to add an incident response section showing what happens after DET-002 fires — disabling the compromised account, blocking the attacker IP, and confirming the successful logon with a 4624 query. I also want to build a dedicated Critical-severity alert for the T1003 lsass detection, since a credential dump on a domain controller warrants faster escalation than brute force.
 
 ---
 
