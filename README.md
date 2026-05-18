@@ -12,18 +12,34 @@
 
 ## Table of Contents
 
-1. [What I Built](#what-i-built)
-2. [My Virtual Machines](#my-virtual-machines)
-3. [What I Installed and Configured](#what-i-installed-and-configured)
-4. [The Attacks I Ran](#the-attacks-i-ran)
-5. [What I Found in Splunk](#what-i-found-in-splunk)
-6. [The Detection I Built](#the-detection-i-built)
-7. [The Problem I Solved](#the-problem-i-solved)
-8. [MITRE ATT&CK Coverage](#mitre-attck-coverage)
-9. [Next Steps](#next-steps)
-10. [What I Learned](#what-i-learned)
-11. [Portfolio Evidence](#portfolio-evidence)
+1. [Skills Demonstrated](#skills-demonstrated)
+2. [What I Built](#what-i-built)
+3. [My Virtual Machines](#my-virtual-machines)
+4. [What I Installed and Configured](#what-i-installed-and-configured)
+5. [The Attacks I Ran](#the-attacks-i-ran)
+6. [What I Found in Splunk](#what-i-found-in-splunk)
+7. [The Detection I Built](#the-detection-i-built)
+8. [The Problem I Solved](#the-problem-i-solved)
+9. [MITRE ATT&CK Coverage](#mitre-attck-coverage)
+10. [Next Steps](#next-steps)
+11. [What I Learned](#what-i-learned)
+12. [Portfolio Evidence](#portfolio-evidence)
 
+---
+
+## Skills Demonstrated
+
+- Active Directory domain setup and administration
+- Windows Server and Windows 10 endpoint configuration
+- Splunk SIEM log ingestion and investigation
+- Sysmon deployment and endpoint telemetry analysis
+- Windows Event Log analysis
+- PowerShell attack detection
+- Brute-force and suspicious login investigation
+- MITRE ATT&CK mapping
+- Basic incident investigation and documentation
+- VirtualBox network isolation and lab hardening
+  
 ---
 
 ## What I Built
