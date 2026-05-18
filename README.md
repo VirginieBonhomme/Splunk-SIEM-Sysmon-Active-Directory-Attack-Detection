@@ -1,3 +1,4 @@
+
 # Lab 01 — Splunk SIEM + Sysmon + Active Directory Attack Detection
 
 > **Domain:** redblue / redblue.local
@@ -126,11 +127,8 @@ timestamps.
 Invoke-AtomicTest T1059.001
 ```
 
-![Atomic Red Team Execution](screenshots/12-atomic-T1059-execution.png)
 *Atomic Red Team executing T1059.001 — multiple sub-tests running*
-
-![Defender Alert](screenshots/11-atomic-T1059-defender-alert.png)
-*Windows Defender detecting Atomic Red Team activity — Threats found popup*
+<img width="750" height="750" alt="atomicred" src="https://github.com/user-attachments/assets/944efea5-d481-45e5-a387-0b9e8723888c" />
 
 ---
 
@@ -157,8 +155,6 @@ index=endpoint EventCode=4625
 | Administrator | 12 |
 | administrator | 7 |
 
-![Brute Force Evidence](screenshots/04-brute-force-evidence.png)
-*47 EventCode 4625 events showing all accounts attacked by Kali*
 
 ### Raw Event Analysis — Logon Type 3
 
@@ -166,8 +162,9 @@ I investigated the raw event data and confirmed Logon Type 3 — a network-based
 attack — on the swilliams account. This confirmed the attack came over the network 
 from Kali.
 
-![Raw 4625 Event](screenshots/05-raw-4625-event.png)
 *Raw EventCode 4625 showing swilliams, Logon Type 3, target-pc.redblue.local*
+<img width="1917" height="848" alt="04-brute-force-evidence" src="https://github.com/user-attachments/assets/4a3bd3a0-f4ed-4b6f-9d7f-6d892a5444bf" />
+
 
 ### T1059.001 PowerShell Detected in Splunk
 
@@ -182,18 +179,13 @@ technique_id=T1059.001
 | table _time, host, technique_id, technique_name
 ```
 
-![T1059 PowerShell Detected](screenshots/13-splunk-T1059-raw-event.png)
+
 *Sysmon logging T1059.001 PowerShell execution with MD5 and SHA256 hashes*
+<img width="750" height="750" alt="atomicred2" src="https://github.com/user-attachments/assets/caa9c904-9fc5-4e12-aee1-29127b93dcf3" />
+
 
 ### T1003 Credential Dumping on Domain Controller
 
-Most critically I found a Sysmon EventCode 10 event on ADDC01 showing 
-**GrantedAccess 0x1fffff** — full memory access rights — against lsass.exe. 
-This is the forensic signature of a Mimikatz-style credential dumping attack 
-against my domain controller.
-
-> **GrantedAccess 0x1fffff = Full access to lsass memory.**
-> This means every domain credential hash was potentially exposed.
 
 ```splunk
 index=endpoint sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
@@ -202,11 +194,10 @@ technique_id=T1003
 | sort -_time
 ```
 
-![T1003 lsass Event](screenshots/06-lsass-T1003-event.png)
 *Sysmon T1003 Credential Dumping on ADDC01 — targeting lsass.exe*
+<img width="1920" height="923" alt="14-splunk-T1003-lsass-full-access" src="https://github.com/user-attachments/assets/5594d4ed-d649-4ce1-9f67-869b20bf8f6c" />
 
-![T1003 Full Access](screenshots/14-splunk-T1003-lsass-full-access.png)
-*Raw Sysmon event showing GrantedAccess 0x1fffff on lsass.exe — ADDC01*
+
 
 ---
 
@@ -231,11 +222,11 @@ index=endpoint EventCode=4625
 | Severity | Medium |
 | Status | Enabled |
 
-![DET-002 Alert Detail](screenshots/07-DET-002-alert-detail.png)
 *DET-002 alert configuration — enabled, scheduled, trigger condition confirmed*
 
-![DET-002 Alerts List](screenshots/08-DET-002-alerts-list.png)
-*DET-002 in Splunk Alerts list — next scheduled run confirmed*
+<img width="1920" height="923" alt="alert2" src="https://github.com/user-attachments/assets/8a239e27-32c5-4c1a-9b6c-ea6d19355f98" />
+
+<img width="1920" height="923" alt="alert1" src="https://github.com/user-attachments/assets/871dcbf4-ef6b-46ba-a83b-5bdf1147e813" />
 
 ---
 
