@@ -86,12 +86,12 @@ endpoint into an index called **endpoint**:
 I confirmed both hosts were sending data 
 *Splunk confirming ADDC01 (8,933 events) and target-pc (2,740 events) are both 
 sending data*
-<img width="1920" height="923" alt="03-sysmon-confirmed" src="https://github.com/user-attachments/assets/7d840986-ea9c-48e9-b36e-f8dd1cc348c5" />
 
+<img width="1920" height="923" alt="02-splunk-both-hosts" src="https://github.com/user-attachments/assets/5ab2929c-ddd9-48b7-8a80-b6ecc78f7e60" />
 
 
 *Sysmon telemetry confirmed — ADDC01 (4,978 events) and target-pc (2,177 events)*
-
+<img width="1920" height="923" alt="03-sysmon-confirmed" src="https://github.com/user-attachments/assets/7d840986-ea9c-48e9-b36e-f8dd1cc348c5"/> 
 
 
 ---
@@ -169,8 +169,7 @@ from Kali.
 ### T1059.001 PowerShell Detected in Splunk
 
 I found Sysmon logs showing T1059.001 PowerShell execution on Target-PC from my 
-Atomic Red Team test. The event included the full file hash of amsi.dll — the 
-Anti-Malware Scan Interface DLL loaded in response to the PowerShell execution.
+Atomic Red Team test. 
 
 ```splunk
 index=endpoint sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
@@ -242,13 +241,18 @@ evidence was indexed I deleted the Kali VM and recovered 46GB of disk space.
 | State | Free Space |
 |---|---|
 | During Kali attack | 1.75 GB free |
-| After Kali deleted | 47.5 GB free |
+| After Kali deleted | 63.8 GB free |
 
-![Disk Critical](screenshots/lessons-learned/LL-01-disk-space-critical.png)
+
+
 *C: drive at 1.75 GB free — critically low during Kali attack*
 
-![Disk Recovered](screenshots/lessons-learned/LL-01-disk-space-after-cleanup.png)
-*C: drive at 47.5 GB free — recovered after Kali VM deletion*
+<img width="493" height="379" alt="LL-01-disk-space-critical" src="https://github.com/user-attachments/assets/9dabf7cc-33f9-47d3-aa86-a31f9bdd1582" />
+
+
+
+*C: drive at 63.8 GB free — recovered after Kali VM deletion*
+<img width="1381" height="714" alt="Screenshot 2026-05-17 122303" src="https://github.com/user-attachments/assets/805e4a0b-5504-4f4b-b05a-307c81b0fd52" />
 
 > **Decision:** Evidence collection takes priority over storage management. 
 > The evidence is what the lab exists to produce.
@@ -272,12 +276,6 @@ I troubleshot this by running `index=* | stats count by index` to discover what
 indexes existed. All 17,000+ events were in the correct location — I just needed 
 to find them.
 
-**lsass.exe is the crown jewel.** Finding a Sysmon EventCode 10 event with 
-GrantedAccess 0x1fffff against lsass.exe on my domain controller — and 
-understanding what it means — gave me a real appreciation for why domain 
-controllers are the highest-priority targets in any network. Every domain 
-credential hash lives in lsass memory.
-
 **Brute force has a signature.** A successful brute force attack generates many 
 EventCode 4625 events clustered in a short time window from a single source 
 against multiple accounts. Recognizing that pattern and building an automated 
@@ -296,24 +294,22 @@ All screenshots located in `/screenshots/`
 
 | File | Description |
 |---|---|
-| 01-vm-inventory.png | VirtualBox all 4 VMs |
-| 02-splunk-both-hosts.png | Both hosts sending data to Splunk |
-| 03-sysmon-confirmed.png | 7,155 Sysmon events from both hosts |
-| 04-brute-force-evidence.png | 47 EventCode 4625 — 5 accounts attacked |
-| 05-raw-4625-event.png | Raw swilliams failed logon Logon Type 3 |
-| 06-lsass-T1003-event.png | T1003 Credential Dumping on ADDC01 |
-| 07-DET-002-alert-detail.png | DET-002 alert configuration |
-| 08-DET-002-alerts-list.png | DET-002 enabled and scheduled |
-| 09-kali-hydra-success.png | Hydra cracking swilliams — Passtheword2020 |
-| 10-kali-crowbar-attack.png | Crowbar attack with password wordlist |
-| 11-atomic-T1059-defender-alert.png | Atomic Red Team — Defender detecting threats |
-| 12-atomic-T1059-execution.png | Atomic Red Team T1059.001 execution output |
-| 13-splunk-T1059-raw-event.png | T1059.001 PowerShell in Splunk with hashes |
-| 14-splunk-T1003-lsass-full-access.png | T1003 lsass GrantedAccess 0x1fffff |
+| vm-inventory.png | VirtualBox all 4 VMs |
+| splunk-both-hosts.png | Both hosts sending data to Splunk |
+| sysmon-confirmed.png | 7,155 Sysmon events from both hosts |
+| brute-force-evidence.png | 47 EventCode 4625 — 5 accounts attacked |
+| raw-4625-event.png | Raw swilliams failed logon Logon Type 3 |
+| lsass-T1003-event.png | T1003 Credential Dumping on ADDC01 |
+| DET-002-alert-detail.png | DET-002 alert configuration |
+| DET-002-alerts-list.png | DET-002 enabled and scheduled |
+| kali-hydra-success.png | Hydra cracking swilliams — Passtheword2020 |
+| kali-crowbar-attack.png | Crowbar attack with password wordlist |
+| atomic-T1059-execution.png | Atomic Red Team T1059.001 execution output |
+| splunk-T1059-raw-event.png | T1059.001 PowerShell in Splunk |
 | lessons-learned/LL-01-disk-space-critical.png | Drive at 1.75 GB — critical |
-| lessons-learned/LL-01-disk-space-after-cleanup.png | Drive at 47.5 GB — recovered |
+| lessons-learned/LL-01-disk-space-after-cleanup.png | Drive at 63.8 GB — recovered |
 
 ---
 
-*Document ID: LAB-01-SPLUNK-SYSMON-2026 | Author: [Your Name] | 
+*Document ID: LAB-01-SPLUNK-SYSMON-2026 | Author: Virginie Solomon-Bonhomme | 
 Domain: redblue.local | Network: 192.168.10.0/24 | Date: May 2026*
