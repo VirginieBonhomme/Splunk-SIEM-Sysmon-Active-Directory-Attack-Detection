@@ -236,7 +236,7 @@ VM disk image consumed most of my available storage.
 
 I made the deliberate decision to **complete the attack and capture all evidence in 
 Splunk before taking any action on the storage issue.** Once I confirmed all attack 
-evidence was indexed I deleted the Kali VM and recovered 46GB of disk space.
+evidence was indexed I deleted the Kali VM and recovered 63.8 GB of disk space.
 
 | State | Free Space |
 |---|---|
