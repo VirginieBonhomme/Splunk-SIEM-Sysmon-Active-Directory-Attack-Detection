@@ -120,7 +120,7 @@ cracked the swilliams account.
 
 I ran Atomic Red Team T1059.001 on Target-PC to simulate PowerShell-based attack 
 techniques including Mimikatz and BloodHound sub-tests. Windows Defender detected 
-and blocked several sub-tests — which is realistic behavior in a hardened 
+and blocked several sub-tests, which is realistic behavior in a hardened 
 environment. Sysmon still logged the execution attempt with file hashes and 
 timestamps.
 
@@ -159,8 +159,8 @@ index=endpoint EventCode=4625
 
 ### Raw Event Analysis — Logon Type 3
 
-I investigated the raw event data and confirmed Logon Type 3 — a network-based 
-attack — on the swilliams account. This confirmed the attack came over the network 
+I investigated the raw event data and confirmed Logon Type 3  a network-based 
+attack on the swilliams account. This confirmed the attack came over the network 
 from Kali.
 
 *Raw EventCode 4625 showing swilliams, Logon Type 3, target-pc.redblue.local*
@@ -272,7 +272,7 @@ evidence was indexed I deleted the Kali VM and recovered 63.8 GB of disk space.
 
 ## Next Steps
 
-I plan to add an incident response section showing what happens after DET-002 fires — disabling the compromised account, blocking the attacker IP, and confirming the successful logon with a 4624 query. I also want to build a dedicated Critical-severity alert for the T1003 lsass detection, since a credential dump on a domain controller warrants faster escalation than brute force.
+I plan to add an incident response section showing what happens after DET-002 fires disabling the compromised account, blocking the attacker IP, and confirming the successful logon with a 4624 query. I also want to build a dedicated Critical-severity alert for the T1003 lsass detection, since a credential dump on a domain controller warrants faster escalation than brute force.
 
 ---
 
@@ -295,7 +295,7 @@ detection rule to catch it is the core of SOC analyst work.
 
 **Disk space is a real operational constraint.** Planning resource allocation 
 before running storage-intensive tools, and knowing when to prioritize evidence 
-collection over cleanup — are skills that transfer directly to production 
+collection over cleanup, are skills that transfer directly to production 
 environments.
 
 ---
