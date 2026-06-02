@@ -23,7 +23,6 @@
 9. [MITRE ATT&CK Coverage](#mitre-attck-coverage)
 10. [Next Steps](#next-steps)
 11. [What I Learned](#what-i-learned)
-12. [Portfolio Evidence](#portfolio-evidence)
 
 ---
 
@@ -327,28 +326,6 @@ to find them.
 
 ---
 
-## Portfolio Evidence
-
-All screenshots located in `/screenshots/`
-
-| File | Description |
-|---|---|
-| vm-inventory.png | VirtualBox all 4 VMs |
-| splunk-both-hosts.png | Both hosts sending data to Splunk |
-| sysmon-confirmed.png | 7,155 Sysmon events from both hosts |
-| brute-force-evidence.png | 47 EventCode 4625 — 5 accounts attacked |
-| raw-4625-event.png | Raw swilliams failed logon Logon Type 3 |
-| lsass-T1003-event.png | T1003 Credential Dumping on ADDC01 |
-| DET-002-alert-detail.png | DET-002 alert configuration |
-| DET-002-alerts-list.png | DET-002 enabled and scheduled |
-| kali-hydra-success.png | Hydra cracking swilliams — Passtheword2020 |
-| kali-crowbar-attack.png | Crowbar attack with password wordlist |
-| atomic-T1059-execution.png | Atomic Red Team T1059.001 execution output |
-| splunk-T1059-raw-event.png | T1059.001 PowerShell in Splunk |
-| lessons-learned/LL-01-disk-space-critical.png | Drive at 1.75 GB — critical |
-| lessons-learned/LL-01-disk-space-after-cleanup.png | Drive at 63.8 GB — recovered |
-
----
 
 *Document ID: LAB-01-SPLUNK-SYSMON-2026 | Author: Virginie Solomon-Bonhomme | 
 Domain: redblue.local | Network: 192.168.10.0/24 | Date: May 2026*
